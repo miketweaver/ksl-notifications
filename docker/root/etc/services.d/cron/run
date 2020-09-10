@@ -1,3 +1,12 @@
 #!/usr/bin/with-contenv bash
 
 /usr/sbin/cron -f -L 1
+
+# modify crontab if logging to file
+if [ "$LOG_FILE" = "TRUE" ]; then
+  crontab -u abc /etc/crontabs/ksl_file
+  echo "log will be output to file"
+else
+  crontab -u abc /etc/crontabs/ksl
+  echo "log will be output to docker log"
+fi
