@@ -34,13 +34,15 @@ usePushover = str_to_bool(os.getenv("SEND_PUSHOVER"))
 sendEmail = str_to_bool(os.getenv("SEND_EMAIL"))
 
 ### Pushover Config
-pushoverAppToken = os.getenv("PUSHOVER_APP_TOKEN")
-pushoverUserToken = os.getenv("PUSHOVER_USER_TOKEN")
+if usePushover:
+	pushoverAppToken = os.getenv("PUSHOVER_APP_TOKEN")
+	pushoverUserToken = os.getenv("PUSHOVER_USER_TOKEN")
 
 ### Email Config
-yourEmail = os.getenv("RECEIVING_EMAIL_ADDRESS")
-emailUserName = os.getenv("EMAIL_ACCESS_USERNAME")
-emailPassword = os.getenv("EMAIL_ACCESS_PASSWORD")
+if sendEmail:
+	yourEmail = os.getenv("RECEIVING_EMAIL_ADDRESS")
+	emailUserName = os.getenv("EMAIL_ACCESS_USERNAME")
+	emailPassword = os.getenv("EMAIL_ACCESS_PASSWORD")
 
 ### Link Config
 link = str(os.getenv("KSL_SEARCH_LINK"))

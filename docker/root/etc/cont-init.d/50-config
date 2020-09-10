@@ -1,0 +1,26 @@
+#!/usr/bin/with-contenv bash
+
+#Check to make sure KSL_SEARCH_LINK is set
+if [ -z "$KSL_SEARCH_LINK" ]; then
+  echo "Please pass your KSL_SEARCH_LINK as an environment variable in your docker run command. See docker info for more details."
+  exit 1
+else
+  echo "Successfully retrieved KSL_SEARCH_LINK from the environment variables"
+fi
+
+# modify crontab if logging to file
+if [ "$LOG_FILE" = "TRUE" ]; then
+  crontab -u abc /defaults/ksl
+  echo "log will be output to file"
+else
+  echo "log will be output to docker log"
+fi
+
+# permissions
+chown -R abc:abc \
+	/app \
+	/config
+
+# run initial update
+exec \
+	s6-setuidgid abc python3 /app/ksl-notifications/src/KSL-Items/getItemList.py
