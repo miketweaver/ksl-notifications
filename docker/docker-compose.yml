@@ -5,6 +5,6 @@ services:
       context: ./
       dockerfile: DOCKERFILE
     volumes:
-      - ../:/config
+      - ../docker_data:/config
     env_file:
         - ../.env

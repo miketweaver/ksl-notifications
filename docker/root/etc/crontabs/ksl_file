@@ -1,0 +1,1 @@
+* 8-22 * * * python3 /app/ksl-notifications/src/KSL-Items/getItemList.py 2>&1 > /config/ksl.log
