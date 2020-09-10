@@ -34,11 +34,6 @@ RUN \
  apt-get install -y \
  	--no-install-recommends \
 	$RUNTIME_PACKAGES && \
- echo "**** install chrome ****" && \
- wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
- echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
- apt update && \
- apt-get install -y google-chrome-stable && \
  echo "**** install chromedriver ****" && \
  mkdir -p /app/chromedriver && \
  if [ -z ${CHROMEDRIVER_VERSION+x} ]; then \
@@ -57,9 +52,15 @@ RUN \
  echo "**** install pip packages ****" && \
  cd /app/ksl-notifications && \
  pip3 install -r requirements.txt && \
- echo "**** cleanup ****" && \
+ echo "**** some cleanup ****" && \
  apt-get purge -y --auto-remove \
 	$BUILD_PACKAGES && \
+ echo "**** install chrome ****" && \
+ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+ echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+ apt update && \
+ apt-get install -y google-chrome-stable && \
+ echo "**** last cleanup ****" && \
  rm -rf \
 	/root/.cache \
 	/tmp/*
